@@ -15,8 +15,8 @@ class BaseModel:
     """
     def __init__(self) -> None:
         self.id = str(uuid4())
-        self.created_at = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
-        self.updated_at = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
+        self.created_at = datetime.now() #.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        self.updated_at = datetime.now() #.strftime("%Y-%m-%dT%H:%M:%S.%f")
         pass
 
     def __str__(self):
@@ -24,7 +24,7 @@ class BaseModel:
 
     def save(self):
         """ updates the public instance attribute updated_at with the current datetime"""
-        pass
+        self.updated_at = datetime.now() #.strftime("%Y-%m-%dT%H:%M:%S.%f")
     
     def to_dict(self):
         """returns a dictionary containing all keys/values of __dict__ of the instance"""
