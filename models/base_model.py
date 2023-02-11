@@ -23,13 +23,27 @@ class BaseModel:
         to_dict : Returns a dictionary containing all keys/values of
                 __dict__ of the instance\n
                 Args: Takes no arguments"""
-    def __init__(self) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """Initializes the BaseModel object\n
         Returns None\n
         Args: Takes no arguments"""
-        self.id = str(uuid4())
-        self.created_at = datetime.now()  # .strftime("%Y-%m-%dT%H:%M:%S.%f")
-        self.updated_at = datetime.now()
+        if args:
+            print("""*args not used\nReinitialize with **kwargs
+                or no arguments""")
+        if kwargs:
+            for k, v in kwargs.items():
+                if k == " __class__":
+                    continue
+                if k in ["created_at", "updated_at"]:
+                    self.__dict__[k] = datetime.strptime(
+                                                        v,
+                                                        "%Y-%m-%dT%H:%M:%S.%f")
+                else:
+                    self.__dict__[k] = v
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self) -> str:
         """Prints visual details in the order shown :
