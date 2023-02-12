@@ -33,3 +33,5 @@ class FileStorage:
             with open(self.__file_path, "r", encoding="utf-8") as input_json:
                 input_json = json.load(input_json)
             self.__objects = input_json
+        else:
+            pass
