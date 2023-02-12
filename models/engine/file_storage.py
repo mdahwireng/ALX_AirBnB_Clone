@@ -33,6 +33,7 @@ class FileStorage:
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r", encoding="utf-8") as input_json:
                 input_json = json.load(input_json)
-            FileStorage.__objects = input_json
+            for k,v in input_json.iems():
+                FileStorage.__objects[k] = v
         else:
             pass
