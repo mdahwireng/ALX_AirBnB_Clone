@@ -3,6 +3,7 @@
 
 from uuid import uuid4
 from datetime import datetime
+from . import storage
 
 
 class BaseModel:
@@ -44,6 +45,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self.to_dict())
 
     def __str__(self) -> str:
         """Prints visual details in the order shown :
@@ -58,6 +60,8 @@ class BaseModel:
         Returns None\n
         Args: Takes no arguments"""
         self.updated_at = datetime.now()
+        storage.new(self.to_dict())
+        storage.save()
 
     def to_dict(self) -> dict:
         """Returns a dictionary containing all keys/values of __dict__
