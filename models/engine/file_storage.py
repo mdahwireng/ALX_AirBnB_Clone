@@ -15,23 +15,24 @@ class FileStorage:
 
     def all(self, ) -> dict:
         """returns the dictionary __objects"""
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj) -> None:
         """sets in __objects the obj with key <obj class name>.id"""
-        self.__objects[obj["id"]] = obj
+        key = f"{obj['__class__']}.{obj['id']}"
+        FileStorage.__objects[key] = obj
 
     def save(self, ) -> None:
         """serializes __objects to the JSON file (path: __file_path)"""
-        obj_json = json.dumps(self.__objects)
-        with open(self.__file_path, "w", encoding="utf-8") as output:
+        obj_json = json.dumps(FileStorage.__objects)
+        with open(FileStorage.__file_path, "w", encoding="utf-8") as output:
             output.write(obj_json)
 
     def reload(self, ) -> None:
         """deserializes the JSON file to __objects"""
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, "r", encoding="utf-8") as input_json:
+        if os.path.exists(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "r", encoding="utf-8") as input_json:
                 input_json = json.load(input_json)
-            self.__objects = input_json
+            FileStorage.__objects = input_json
         else:
             pass
