@@ -9,8 +9,9 @@ class FileStorage:
     instances"""
     __file_path = "./file.json"
     __objects = dict()
-    classes = {"BaseModel": BaseModel,
-                "User": User}
+    classes = {
+            "BaseModel": BaseModel,
+            "User": User}
 
     def __init__(self) -> None:
         """Initializes FileStorage intances"""
@@ -28,17 +29,24 @@ class FileStorage:
 
     def save(self, ) -> None:
         """serializes __objects to the JSON file (path: __file_path)"""
-        obj_dict = {k:v.to_dict() for k,v in FileStorage.__objects.items()}
+        obj_dict = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
         obj_json = json.dumps(obj_dict)
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as output:
+        with open(
+                FileStorage.__file_path,
+                "w",
+                encoding="utf-8") as output:
             output.write(obj_json)
 
     def reload(self, ) -> None:
         """deserializes the JSON file to __objects"""
         if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path, "r", encoding="utf-8") as input_json:
+            with open(
+                    FileStorage.__file_path,
+                    "r",
+                    encoding="utf-8") as input_json:
                 input_json = json.load(input_json)
-            for k,v in input_json.items():
-                FileStorage.__objects[k] = FileStorage.classes[k.split(".")[0]](**v)
+            for k, v in input_json.items():
+                FileStorage.__objects[k] = FileStorage.classes[
+                                            k.split(".")[0]](**v)
         else:
             pass
